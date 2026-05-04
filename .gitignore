@@ -1,0 +1,5 @@
+# GitHub Ignore for Nemi Cinema
+.env
+volumes/
+*.log
+.DS_Store
