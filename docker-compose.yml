@@ -32,3 +32,17 @@ services:
     volumes:
       - ./volumes/aria2-config:/config
       - ./volumes/data:/downloads
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    network_mode: host
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - ./volumes/sonarr-config:/config
+      - ./volumes/data:/data
+      - ./volumes/data:/downloads
