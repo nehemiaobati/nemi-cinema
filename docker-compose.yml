@@ -60,3 +60,58 @@ services:
       - ./volumes/radarr-config:/config
       - ./volumes/data:/data
       - ./volumes/data/radarr:/downloads
+
+  prowlarr:
+    image: linuxserver/prowlarr
+    container_name: prowlarr
+    network_mode: host
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Africa/Nairobi
+    volumes:
+      - ./volumes/prowlarr-config:/config
+      - ./volumes/data/prowlarr:/downloads
+
+  lidarr:
+    image: linuxserver/lidarr
+    container_name: lidarr
+    network_mode: host
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Africa/Nairobi
+    volumes:
+      - ./volumes/lidarr-config:/config
+      - ./volumes/data:/data
+      - ./volumes/data/lidarr:/downloads
+
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    network_mode: host
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Africa/Nairobi
+    volumes:
+      - ./volumes/bazarr-config:/config
+      - ./volumes/data:/data
+      - ./volumes/data/bazarr:/downloads
+
+  readarr:
+    image: ricetim/readarr-rresurrected:latest
+    container_name: readarr
+    network_mode: host
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Africa/Nairobi
+    volumes:
+      - ./volumes/readarr-config:/config
+      - ./volumes/data:/data
+      - ./volumes/data/readarr:/downloads
