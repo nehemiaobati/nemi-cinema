@@ -27,7 +27,8 @@ services:
     network_mode: host
     restart: always
     environment:
-      - RPC_SECRET=***      - RPC_PORT=6800
+      - RPC_SECRET=${ARIA2_SECRET}
+      - RPC_PORT=6800
       - TZ=Africa/Nairobi
     volumes:
       - ./volumes/aria2-config:/config
@@ -115,3 +116,17 @@ services:
       - ./volumes/readarr-config:/config
       - ./volumes/data:/data
       - ./volumes/data/readarr:/downloads
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    network_mode: host
+    restart: always
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_FILE=${LOG_FILE:-none}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=Africa/Nairobi
+    volumes:
+      - ./volumes/flaresolverr-config:/config
