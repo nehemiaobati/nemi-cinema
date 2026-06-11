@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   jellyfin:
     image: jellyfin/jellyfin
@@ -18,8 +16,10 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
+      - TZ=Africa/Nairobi
     volumes:
       - ./volumes/jackett-config:/config
+      - ./volumes/data/jackett:/downloads
 
   aria2:
     image: p3terx/aria2-pro
@@ -27,11 +27,11 @@ services:
     network_mode: host
     restart: always
     environment:
-      - RPC_SECRET=${ARIA2_SECRET}
-      - RPC_PORT=6800
+      - RPC_SECRET=***      - RPC_PORT=6800
+      - TZ=Africa/Nairobi
     volumes:
       - ./volumes/aria2-config:/config
-      - ./volumes/data:/downloads
+      - ./volumes/data/aria2:/downloads
 
   sonarr:
     image: linuxserver/sonarr
@@ -41,11 +41,11 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=UTC
+      - TZ=Africa/Nairobi
     volumes:
       - ./volumes/sonarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data:/downloads
+      - ./volumes/data/sonarr:/downloads
 
   radarr:
     image: linuxserver/radarr
@@ -55,9 +55,8 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=UTC
+      - TZ=Africa/Nairobi
     volumes:
       - ./volumes/radarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data:/downloads
-
+      - ./volumes/data/radarr:/downloads
