@@ -1,72 +1,27 @@
-# 🎬 Nemi Cinema: Automated Media Pipeline
+# Nemi Cinema
 
-A lean, automated media pipeline using Docker. Maya (AI Agent) manages the workflow from search to acquisition and library organization.
+A comprehensive home media automation stack.
 
-## 🏗️ System Architecture
-- **Jellyfin**: Media server and playback interface (Port `8096`).
-- **Jackett**: Indexer aggregator (Standardized Torznab API) (Port `9117`).
-- **aria2**: RPC-controlled download engine (Port `6800`).
-- **Radarr**: Movie library management (Port `7878`).
-- **Sonarr**: TV Show library management (Port `8989`).
-- **Prowlarr**: Indexer and tracker manager (Port `9696`).
-- **Lidarr**: Music library management (Port `8686`).
-- **Bazarr**: Subtitle automatic downloader (Port `6767`).
-- **Readarr**: Book and Audiobook library management (Port `8787`).
-- **Flaresolverr**: Proxy server to bypass Cloudflare protection (Port `8191`).
+## 🚀 Services & Ports
+- **Jellyfin**: `8096` (Media Server)
+- **Radarr**: `7878` (Movies)
+- **Sonarr**: `8989` (TV Shows)
+- **Prowlarr**: `9696` (Indexers)
+- **Lidarr**: `8686` (Music)
+- **Readarr**: `8787` (Books/Audiobooks)
+- **Bazarr**: `6767` (Subtitles)
+- **Jackett**: `9117` (Indexers)
+- **Aria2**: `6800` (Downloads)
+- **FlareSolverr**: `8191` (Captcha Solver)
 
-## 📁 Standardized Isolated Paths
-To keep the primary Jellyfin library folder (`./volumes/data`) pristine and avoid cross-container junk, each download client/service is isolated:
-- **Root Library**: `./volumes/data/media/`
-- **Jackett Downloads**: `./volumes/data/jackett`
-- **Aria2 Downloads**: `./volumes/data/aria2`
-- **Sonarr Downloads**: `./volumes/data/sonarr`
-- **Radarr Downloads**: `./volumes/data/radarr`
-- **Prowlarr Downloads**: `./volumes/data/prowlarr`
-- **Lidarr Downloads**: `./volumes/data/lidarr`
-- **Bazarr Downloads**: `./volumes/data/bazarr`
-- **Readarr Downloads**: `./volumes/data/readarr`
+## 🛠 Architecture
+- **Networking**: `network_mode: host` for all services.
+- **Timezone**: `Africa/Nairobi`.
+- **Storage Pattern**: 
+  - Configs: Isolated in `./volumes/<service>-config`.
+  - Media Library: Global root at `./volumes/data`.
+  - Downloads: Isolated per-service at `./volumes/data/<service>`.
 
-## 🚀 Workflow & Orchestration
-
-### 1. Discovery
-Maya queries the Jackett or Prowlarr API to find media.
-- **Jackett Endpoint**: `http://127.0.0.1:9117/api/v2.0/indexers/all/results/torznab/api`
-- **Params**: `apikey=[API_KEY]`, `t=search`, `q=[QUERY]`
-
-### 2. Acquisition
-Maya triggers aria2 via JSON-RPC.
-- **Endpoint**: `http://127.0.0.1:6800/jsonrpc`
-- **Request Payload**:
-```json
-{
-  "jsonrpc": "2.0",
-  "method": "aria2.addUri",
-  "params": ["token:[ARIA2_SECRET]", ["[MAGNET_URL]"], {"dir": "/downloads"}],
-  "id": "1"
-}
-```
-
-### 3. Cleanup & Organization
-Once aria2 finishes:
-1. **Move**: Move the media file (`.mkv`/`.mp4`) to the structured library vault: `/[PATH_TO_PROJECT]/volumes/data/media/TV Shows/[Show]/Season [X]/`.
-2. **Discard**: Delete promotional `.txt`, `.url`, or `.torrent` residue.
-3. **Keep**: `.nfo` files (if present).
-
-## ⚙️ Configuration & Management
-
-### Deployment
-1. **Prepare**: Ensure `/volumes/` directories exist and `.env` is populated.
-2. **Launch**: `make up`
-3. **Tunnel**: Access Jackett/Services via SSH tunnel: `ssh -L 9117:127.0.0.1:9117 [USER]@[HOST_IP]`
-
-### Operational Commands
-- `make up`: Deploy/start all containers.
-- `make down`: Stop all containers.
-- `make logs`: Stream container logs.
-- `make ps`: Check container status.
-
-## 🧠 Agent Instructions
-- **Search**: Use Jackett/Prowlarr Aggregate API for magnet links.
-- **Download**: Trigger aria2 via JSON-RPC.
-- **Vault**: Move finished media files to `/[PATH_TO_PROJECT]/volumes/data/media/[TV Shows|Movies]`.
-- **Hygiene**: Aggressively discard non-media junk files from download residue.
+## ⚙️ Maintenance
+- Run `make down` and `make up` to apply changes.
+- Use `.env` for secrets (e.g., `ARIA2_SECRET`).
