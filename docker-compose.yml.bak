@@ -46,3 +46,18 @@ services:
       - ./volumes/sonarr-config:/config
       - ./volumes/data:/data
       - ./volumes/data:/downloads
+
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    network_mode: host
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=UTC
+    volumes:
+      - ./volumes/radarr-config:/config
+      - ./volumes/data:/data
+      - ./volumes/data:/downloads
+
