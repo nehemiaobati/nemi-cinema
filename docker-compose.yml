@@ -123,10 +123,10 @@ services:
     network_mode: host
     restart: always
     environment:
-      - LOG_LEVEL=${LOG_LEVEL:-info}
-      - LOG_FILE=${LOG_FILE:-none}
-      - LOG_HTML=${LOG_HTML:-false}
-      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - LOG_LEVEL=info
+      - LOG_FILE=none
+      - LOG_HTML=false
+      - CAPTCHA_SOLVER=none
       - TZ=Africa/Nairobi
     volumes:
       - ./volumes/flaresolverr-config:/config
