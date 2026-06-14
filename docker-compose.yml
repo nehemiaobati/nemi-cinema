@@ -7,6 +7,7 @@ services:
     volumes:
       - ./volumes/jellyfin-config:/config
       - ./volumes/data:/data
+      - ./volumes/data:/downloads
 
   jackett:
     image: linuxserver/jackett
@@ -19,7 +20,6 @@ services:
       - TZ=Africa/Nairobi
     volumes:
       - ./volumes/jackett-config:/config
-      - ./volumes/data/jackett:/downloads
 
   aria2:
     image: p3terx/aria2-pro
@@ -27,12 +27,29 @@ services:
     network_mode: host
     restart: always
     environment:
+      - PUID=1000
+      - PGID=1000
       - RPC_SECRET=${ARIA2_SECRET}
       - RPC_PORT=6800
       - TZ=Africa/Nairobi
     volumes:
       - ./volumes/aria2-config:/config
-      - ./volumes/data/aria2:/downloads
+      - ./volumes/data:/data
+      - ./volumes/data:/downloads
+
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    network_mode: host
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Africa/Nairobi
+      - WEBUI_PORT=8112
+    volumes:
+      - ./volumes/qbittorrent-config:/config
+      - ./volumes/data:/data
 
   sonarr:
     image: linuxserver/sonarr
@@ -46,7 +63,7 @@ services:
     volumes:
       - ./volumes/sonarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data/sonarr:/downloads
+      - ./volumes/data:/downloads
 
   radarr:
     image: linuxserver/radarr
@@ -60,7 +77,7 @@ services:
     volumes:
       - ./volumes/radarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data/radarr:/downloads
+      - ./volumes/data:/downloads
 
   prowlarr:
     image: linuxserver/prowlarr
@@ -73,7 +90,6 @@ services:
       - TZ=Africa/Nairobi
     volumes:
       - ./volumes/prowlarr-config:/config
-      - ./volumes/data/prowlarr:/downloads
 
   lidarr:
     image: linuxserver/lidarr
@@ -87,7 +103,7 @@ services:
     volumes:
       - ./volumes/lidarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data/lidarr:/downloads
+      - ./volumes/data:/downloads
 
   bazarr:
     image: linuxserver/bazarr
@@ -101,7 +117,7 @@ services:
     volumes:
       - ./volumes/bazarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data/bazarr:/downloads
+      - ./volumes/data:/downloads
 
   readarr:
     image: ricetim/readarr-rresurrected:latest
@@ -115,7 +131,7 @@ services:
     volumes:
       - ./volumes/readarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data/readarr:/downloads
+      - ./volumes/data:/downloads
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
