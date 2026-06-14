@@ -45,5 +45,6 @@ Look for the line: `The WebUI administrator password was generated and is: XXXXX
 
 ## ⚙️ Configuration Notes
 - **User/Group:** All services run as `PUID=1000` and `PGID=1000`.
+- **Permissions:** Fix volume ownership with `sudo chown -R 1000:1000 ./volumes`
 - **Network:** `network_mode: host` for maximum performance and simplified port management.
 - **Timezone:** `Africa/Nairobi`.
