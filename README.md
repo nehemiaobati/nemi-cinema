@@ -3,7 +3,7 @@
 ## 🏗 Architecture: Single Data Pool
 This setup uses a **Single Data Pool** strategy to ensure atomic moves and eliminate duplication.
 - **Host Path:** `./volumes/data`
-- **Container Path:** `/data` and `/downloads` (Mapped interchangeably across Arr services).
+- **Container Path:** `/data` and `/downloads` (Mapped across Arr services, with `/downloads` specifically mapped to qBittorrent).
 - **Benefit:** Files are moved instantly from download to library without copying across different virtual filesystems.
 
 ## 🛠 Management Commands
@@ -18,7 +18,7 @@ This setup uses a **Single Data Pool** strategy to ensure atomic moves and elimi
 | Service | Port | Description | Volume Mapping |
 | :--- | :--- | :--- | :--- |
 | **Jellyfin** | 8096 | Media Server | `/data` |
-| **qBittorrent** | 8112 | Torrent Client | `/data` |
+- **qBittorrent** | 8112 | Torrent Client | `/data`, `/downloads` |
 | **Sonarr** | 8989 | TV Series Management | `/data`, `/downloads` |
 | **Radarr** | 7878 | Movie Management | `/data`, `/downloads` |
 | **Lidarr** | 8686 | Music Management | `/data`, `/downloads` |
