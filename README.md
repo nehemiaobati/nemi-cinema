@@ -36,7 +36,7 @@ docker logs qbittorrent
 Look for the line: `The WebUI administrator password was generated and is: XXXXXXXX`
 
 ## 📂 Directory Structure (Host)
-- `volumes/data/downloads` $\rightarrow$ Active downloads (The "Landing Zone").
+- `volumes/data/downloads` $\rightarrow$ Active downloads (Mapped to qBittorrent for incoming traffic).
 - `volumes/data/media/Movies` $\rightarrow$ Final Movie Library.
 - `volumes/data/media/TV Shows` $\rightarrow$ Final TV Library.
 - `volumes/data/media/Music` $\rightarrow$ Final Music Library.
