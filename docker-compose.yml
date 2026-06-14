@@ -7,7 +7,7 @@ services:
     volumes:
       - ./volumes/jellyfin-config:/config
       - ./volumes/data:/data
-      - ./volumes/data:/downloads
+      - ./volumes/data/downloads:/downloads
 
   jackett:
     image: linuxserver/jackett
@@ -35,7 +35,7 @@ services:
     volumes:
       - ./volumes/aria2-config:/config
       - ./volumes/data:/data
-      - ./volumes/data:/downloads
+      - ./volumes/data/downloads:/downloads
 
   qbittorrent:
     image: linuxserver/qbittorrent:latest
@@ -50,6 +50,7 @@ services:
     volumes:
       - ./volumes/qbittorrent-config:/config
       - ./volumes/data:/data
+      - ./volumes/data/downloads:/downloads
 
   sonarr:
     image: linuxserver/sonarr
@@ -63,7 +64,7 @@ services:
     volumes:
       - ./volumes/sonarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data:/downloads
+      - ./volumes/data/downloads:/downloads
 
   radarr:
     image: linuxserver/radarr
@@ -77,7 +78,7 @@ services:
     volumes:
       - ./volumes/radarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data:/downloads
+      - ./volumes/data/downloads:/downloads
 
   prowlarr:
     image: linuxserver/prowlarr
@@ -103,7 +104,7 @@ services:
     volumes:
       - ./volumes/lidarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data:/downloads
+      - ./volumes/data/downloads:/downloads
 
   bazarr:
     image: linuxserver/bazarr
@@ -117,7 +118,7 @@ services:
     volumes:
       - ./volumes/bazarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data:/downloads
+      - ./volumes/data/downloads:/downloads
 
   readarr:
     image: ricetim/readarr-rresurrected:latest
@@ -131,7 +132,7 @@ services:
     volumes:
       - ./volumes/readarr-config:/config
       - ./volumes/data:/data
-      - ./volumes/data:/downloads
+      - ./volumes/data/downloads:/downloads
 
   flaresolverr:
     image: ghcr.io/flaresolverr/flaresolverr:latest
