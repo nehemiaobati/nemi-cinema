@@ -4,3 +4,4 @@ volumes/
 *.log
 .DS_Store
 volumes/
+*.swp
