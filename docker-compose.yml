@@ -8,6 +8,10 @@ services:
       - ./volumes/jellyfin-config:/config
       - ./volumes/data:/data
       - ./volumes/data/downloads:/downloads
+      - ./volumes/data/media/Movies:/Movies
+      - ./volumes/data/media/TV Shows:/TV Shows
+      - ./volumes/data/media/Music:/Music
+      - ./volumes/data/media/Photos:/Photos
 
   jackett:
     image: linuxserver/jackett
